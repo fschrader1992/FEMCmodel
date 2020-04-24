@@ -105,7 +105,6 @@ for i in range(len(gp_data)):
     for j in range(len(gp_data[0])):
         prs += [parasol_rates[:, i, j]]
         gp_pos += [[0.5*gp_data[i][j][0]+0.25, 0.5*gp_data[i][j][1]+0.25]]
-        gp_r_0_pos += [[0.5*gp_data[i][j][0]+2.25, 0.5*gp_data[i][j][1]+0.25]]
 
 #create layer for input
 parasols = tp.CreateLayer({'extent' : [extent_x, extent_y], 'center' : [center_x, center_y], 'positions' : gp_pos,
