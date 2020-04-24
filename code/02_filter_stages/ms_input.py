@@ -6,19 +6,20 @@ THE OUTPUT ARE MIDGET AND PARASOL CELL POTENTIAL VALUES.
 import sys
 import os
 import glob
-import numpy as np
-import matplotlib.pyplot as plt
 import cv2
 import datetime
 import itertools
+import copy
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 #DEFINE-FILTER-FUNCTION-------------------------------------------------------------------------------------------------
 
-def temp_filter_fct(t,tau1,tau2,p):
+def temp_filter_fct(t, tau1, tau2, p):
     return 25./20.*(t*t*t/(tau1*tau1*tau1*tau1)*np.exp(-t/tau1)-p*t*t*t/(tau2*tau2*tau2*tau2)*np.exp(-t/tau2))
 
-def spatial_filter_fct(x,x0,sigma,alpha,beta):
+def spatial_filter_fct(x, x0, sigma, alpha, beta):
     return (np.exp(-(x-x0)*(x-x0)/(2*sigma*sigma))-alpha*np.exp(-(x-x0)*(x-x0)/(2*beta*beta*sigma*sigma)))/sigma
 
 
@@ -26,7 +27,7 @@ def spatial_filter_fct(x,x0,sigma,alpha,beta):
 
 now = datetime.datetime.now()
 
-pgf_with_rc_fonts = {"font.family": "serif","font.serif": [],"font.sans-serif": []}
+pgf_with_rc_fonts = {"font.family": "serif", "font.serif": [], "font.sans-serif": []}
 plt.rcParams.update(pgf_with_rc_fonts)
 
 #variable paramaters given in command line
@@ -106,7 +107,7 @@ sigma = 1.
 mid_sf_br = 6
 par_sf_br = 2*mid_sf_br
 
-#other values related to space 
+#other values related to space
 #pixel to receptor/midgets ratio, needed for receptor distance/number
 px_mid_ratio = 1.
 #distance of midgets
@@ -127,7 +128,7 @@ midget_width = int(width/px_mid_ratio)
 parasol_height = int(height/(px_mid_ratio*mid_par_ratio*0.866))
 parasol_width = int(width/(px_mid_ratio*mid_par_ratio))
 
-print(midget_height,midget_width,parasol_height,parasol_width)
+print(midget_height, midget_width, parasol_height, parasol_width)
 
 #array to store all midget/parasol values at (x, y, t)
 midgets4d = np.zeros(shape=(frame_number, midget_height, midget_width))
@@ -186,7 +187,7 @@ def get_spat_filter_midget(ij):
     j_ceil = int(pos_j*px_mid_ratio+mid_sf_br)+1
 
     #get weights
-    (tt, yy, xx) = np.mgrid[ 0:frame_number, i_low:i_ceil, j_low:j_ceil]
+    (tt, yy, xx) = np.mgrid[0:frame_number, i_low:i_ceil, j_low:j_ceil]
 
     z = spatial_filter_fct(np.sqrt(0.866*(pos_i-yy)*0.866*(pos_i-yy)+(pos_j-xx)*(pos_j-xx)), 0, sigma, alpha, beta)
 
@@ -214,7 +215,7 @@ print('start of midget temporal part ' + handle_name)
 #calculate the values for the temporal filter
 (tt, yy, xx) = np.mgrid[0:temp_filter_cut_off, :midget_height, :midget_width]
 
-temp_filter = temp_filter_fct(tt*dt,tau1,tau2,p)
+temp_filter = temp_filter_fct(tt*dt, tau1, tau2, p)
 #the filter is reversed in time
 temp_filter = temp_filter[::-1, :, :]
 #fill with zeros, such that np.roll() is possible
@@ -272,8 +273,8 @@ def get_spat_filter_parasol(ij):
     '''
 
     #print info
-    if ij[0]%5==0:
-        if ij[1]==0:
+    if ij[0]%5 == 0:
+        if ij[1] == 0:
             print(handle_name + ' ' + str(ij[0]))
 
     #get position
@@ -296,12 +297,12 @@ def get_spat_filter_parasol(ij):
     #get fitlered values
     qrt = np.sum(par_sf * m4d[:, i_low:i_ceil, j_low:j_ceil], axis=1)
     parasols4d[:, ij[0], ij[1]] = np.sum(qrt, axis=1)
-    
+
 #apply the spatial filter
 list(map(lambda x: get_spat_filter_parasol(x), itertools.product(range(parasol_height), range(parasol_width))))
 
 #rectification
-parsols4d_on = np.where(parasols4d < 0, 0, parasols4d)
+parasols4d_on = np.where(parasols4d < 0, 0, parasols4d)
 
 
 #SAVE-OUTPUT------------------------------------------------------------------------------------------------------------
