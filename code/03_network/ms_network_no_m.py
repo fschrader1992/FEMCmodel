@@ -62,17 +62,17 @@ t_end = sim_length
 center_x = extent_x/2.
 center_y = extent_y/2.
 
-#get membran potetials
-p_file = open('../data/'+str(sim_title)+'/parasolic_rates_'+str(handle_name)+'_on.data', 'rb')
+#get membrane potentials
+p_file = open('../data/'+str(sim_title)+'/parasol_rates_'+str(handle_name)+'_on.data', 'rb')
 p_data = np.load(p_file)
 p_file.close()
 
-parasolic_rates = p_data
+parasol_rates = p_data
 
 #amplification of membrane potential, calibrated to moving bar stimulus
 pmr = 8.
 
-parasolic_rates = pmr*parasolic_rates #+p_noise
+parasol_rates = pmr*parasol_rates #+p_noise
 
 #for rates
 prs = []
@@ -103,12 +103,12 @@ gp_pos = []
 
 for i in range(len(gp_data)):
     for j in range(len(gp_data[0])):
-        prs += [parasolic_rates[:, i, j]]
+        prs += [parasol_rates[:, i, j]]
         gp_pos += [[0.5*gp_data[i][j][0]+0.25, 0.5*gp_data[i][j][1]+0.25]]
         gp_r_0_pos += [[0.5*gp_data[i][j][0]+2.25, 0.5*gp_data[i][j][1]+0.25]]
 
 #create layer for input
-parasolic = tp.CreateLayer({'extent' : [extent_x, extent_y], 'center' : [center_x, center_y], 'positions' : gp_pos,
+parasols = tp.CreateLayer({'extent' : [extent_x, extent_y], 'center' : [center_x, center_y], 'positions' : gp_pos,
                             'elements': 'iaf_psc_alpha_mp', 'edge_wrap': True})
 
 #detect spikes
@@ -121,13 +121,13 @@ out_p = tp.CreateLayer({'extent' : [extent_x, extent_y], 'center' : [center_x, c
 out_conndict = {'connection_type' : 'convergent', 'mask' : {'rectangular' : {'lower_left' : [-0.2, -0.2],
                                                                              'upper_right' : [0.2, 0.2]}}}
 
-tp.ConnectLayers(parasolic, out_p, out_conndict)
+tp.ConnectLayers(parasols, out_p, out_conndict)
 
 
 #SIMULATION-------------------------------------------------------------------------------------------------------------
 
 #for updates
-PIDs = nest.GetNodes(parasolic)
+PIDs = nest.GetNodes(parasols)
 
 for f in range(t_start, t_end):
     print(handle_name + ' '+ str(f))

@@ -323,7 +323,7 @@ m_data = open('../data/'+sim_title+'/midget_rates_'+str(handle_name)+'.data', 'w
 np.save(m_data, midgets4d_temp)
 m_data.close()
 
-p_data = open('../data/'+sim_title+'/parasolic_rates_'+str(handle_name)+'.data', 'wb')
+p_data = open('../data/'+sim_title+'/parasol_rates_'+str(handle_name)+'.data', 'wb')
 np.save(m_data, parasols4d)
 p_data.close()
 
@@ -331,7 +331,7 @@ m_data = open('../data/'+sim_title+'/midget_rates_'+str(handle_name)+'_on.data',
 np.save(m_data, midgets4d_temp_on)
 m_data.close()
 
-p_data = open('../data/'+sim_title+'/parasolic_rates_'+str(handle_name)+'_on.data', 'wb')
+p_data = open('../data/'+sim_title+'/parasol_rates_'+str(handle_name)+'_on.data', 'wb')
 np.save(m_data, parasols4d_on)
 p_data.close()
 
