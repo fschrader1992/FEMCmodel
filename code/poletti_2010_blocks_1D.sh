@@ -77,7 +77,7 @@ for j in 0
 
     wait
 
-    for i in $j $((j+1))
+    for i in $j
     do
 
       echo "STARTING NETWORK SIMULATIONS FOR " ${i}
