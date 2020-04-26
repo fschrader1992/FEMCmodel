@@ -13,11 +13,11 @@ do
               j=107
               echo simulation $i $j
 
-              python3 03_network/ms_network_no_p.py jitter_fem/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
-              python3 03_network/ms_network_no_p.py jitter_fem/$((k+1))/zebra_std${s}_on${j}off${i} zebra_$((k+1))_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
+              python3 03_network/ms_network_only_m.py jitter_fem/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
+              python3 03_network/ms_network_only_m.py jitter_fem/$((k+1))/zebra_std${s}_on${j}off${i} zebra_$((k+1))_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
 
-              python3 03_network/ms_network_no_p.py jitter_fem/${k}/zebra_std$((s+25))_on${j}off${i} zebra_${k}_std$((s+25))_on${j}off${i} 62. 16. 636 ${j} ${i}
-              python3 03_network/ms_network_no_p.py jitter_fem/$((k+1))/zebra_std$((s+25))_on${j}off${i} zebra_$((k+1))_std$((s+25))_on${j}off${i} 62. 16. 636 ${j} ${i}
+              python3 03_network/ms_network_only_m.py jitter_fem/${k}/zebra_std$((s+25))_on${j}off${i} zebra_${k}_std$((s+25))_on${j}off${i} 62. 16. 636 ${j} ${i}
+              python3 03_network/ms_network_only_m.py jitter_fem/$((k+1))/zebra_std$((s+25))_on${j}off${i} zebra_$((k+1))_std$((s+25))_on${j}off${i} 62. 16. 636 ${j} ${i}
 
             done
 

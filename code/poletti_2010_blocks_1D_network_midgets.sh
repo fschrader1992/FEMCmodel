@@ -11,10 +11,10 @@ for j in 0
 
       echo "STARTING NETWORK SIMULATIONS FOR " ${i}
 
-      python3 03_network/ms_network_no_p.py poletti2010/blocks/${i}/dot dot_${i} 32. 16. 1000 dot ${i}
-      python3 03_network/ms_network_no_p.py poletti2010/blocks/${i}/dot_m dot_m_${i} 62. 16. 1000 dot_m ${i}
-      python3 03_network/ms_network_no_p.py poletti2010/blocks/${i}/border border_${i} 32. 16. 1000 border ${i}
-      python3 03_network/ms_network_no_p.py poletti2010/blocks/${i}/border_m border_m_${i} 62. 16. 1000 border_m ${i}
+      python3 03_network/ms_network_only_m.py poletti2010/blocks/${i}/dot dot_${i} 32. 16. 1000 dot ${i}
+      python3 03_network/ms_network_only_m.py poletti2010/blocks/${i}/dot_m dot_m_${i} 62. 16. 1000 dot_m ${i}
+      python3 03_network/ms_network_only_m.py poletti2010/blocks/${i}/border border_${i} 32. 16. 1000 border ${i}
+      python3 03_network/ms_network_only_m.py poletti2010/blocks/${i}/border_m border_m_${i} 62. 16. 1000 border_m ${i}
 
     done
 done
@@ -29,10 +29,10 @@ for j in {1..10..2}
 
       echo "STARTING NETWORK SIMULATIONS FOR " ${i}
 
-      python3 03_network/ms_network_no_p.py poletti2010/blocks/${i}/dot dot_${i} 32. 16. 1000 dot ${i}
-      python3 03_network/ms_network_no_p.py poletti2010/blocks/${i}/dot_m dot_m_${i} 62. 16. 1000 dot_m ${i}
-      python3 03_network/ms_network_no_p.py poletti2010/blocks/${i}/border border_${i} 32. 16. 1000 border ${i}
-      python3 03_network/ms_network_no_p.py poletti2010/blocks/${i}/border_m border_m_${i} 62. 16. 1000 border_m ${i}
+      python3 03_network/ms_network_only_m.py poletti2010/blocks/${i}/dot dot_${i} 32. 16. 1000 dot ${i}
+      python3 03_network/ms_network_only_m.py poletti2010/blocks/${i}/dot_m dot_m_${i} 62. 16. 1000 dot_m ${i}
+      python3 03_network/ms_network_only_m.py poletti2010/blocks/${i}/border border_${i} 32. 16. 1000 border ${i}
+      python3 03_network/ms_network_only_m.py poletti2010/blocks/${i}/border_m border_m_${i} 62. 16. 1000 border_m ${i}
 
     done
 done

@@ -13,7 +13,7 @@ do
           j=53
           echo simulation $i $j
           
-          python3 03_network/ms_network_no_p.py murakami2003/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
+          python3 03_network/ms_network_only_m.py murakami2003/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
           
         done
         
@@ -22,7 +22,7 @@ do
           j=107
           echo simulation $i $j
           
-          python3 03_network/ms_network_no_p.py murakami2003/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
+          python3 03_network/ms_network_only_m.py murakami2003/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
           
         done
         
@@ -31,7 +31,7 @@ do
           j=213
           echo simulation $i $j
           
-          python3 03_network/ms_network_no_p.py murakami2003/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
+          python3 03_network/ms_network_only_m.py murakami2003/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
           
         done
 
