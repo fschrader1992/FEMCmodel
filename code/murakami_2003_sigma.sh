@@ -39,8 +39,8 @@ do
               fi
 
 
-              python3 image_creation_jitter_fem.py ${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} ${i} ${j} ${s} 636
-              python3 image_creation_jitter_fem.py ${k}/zebra_std$((s+25))_on${j}off${i} zebra_${k}_std$((s+25))_on${j}off${i} ${i} ${j} $((s+25)) 636
+              python3 01_image_input/image_creation_murakami_2003_1D.py ${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} ${i} ${j} ${s} 636
+              python3 01_image_input/image_creation_murakami_2003_1D.py ${k}/zebra_std$((s+25))_on${j}off${i} zebra_${k}_std$((s+25))_on${j}off${i} ${i} ${j} $((s+25)) 636
 
               #delete unnecessary files
               cd ../video/img_input/jitter_fem/${k}/zebra_std${s}_on${j}off${i}
@@ -70,8 +70,8 @@ do
               fi
 
 
-              python3 image_creation_jitter_fem.py $((k+1))/zebra_std${s}_on${j}off${i} zebra_$((k+1))_std${s}_on${j}off${i} ${i} ${j} ${s} 636
-              python3 image_creation_jitter_fem.py $((k+1))/zebra_std$((s+25))_on${j}off${i} zebra_$((k+1))_std$((s+25))_on${j}off${i} ${i} ${j} $((s+25)) 636
+              python3 01_image_input/image_creation_murakami_2003_1D.py $((k+1))/zebra_std${s}_on${j}off${i} zebra_$((k+1))_std${s}_on${j}off${i} ${i} ${j} ${s} 636
+              python3 01_image_input/image_creation_murakami_2003_1D.py $((k+1))/zebra_std$((s+25))_on${j}off${i} zebra_$((k+1))_std$((s+25))_on${j}off${i} ${i} ${j} $((s+25)) 636
 
               #delete unnecessary files
               cd ../video/img_input/jitter_fem/$((k+1))/zebra_std${s}_on${j}off${i}
@@ -83,10 +83,10 @@ do
 
             done
 
-            python3 ms_input.py jitter_fem/$((k))/zebra_std${s}_on107off0 zebra_$((k))_std${s}_on107off0 636 &
-            python3 ms_input.py jitter_fem/$((k))/zebra_std$((s+25))_on107off0 zebra_$((k))_std$((s+25))_on107off0 636 &
-            python3 ms_input.py jitter_fem/$((k+1))/zebra_std${s}_on107off0 zebra_$((k+1))_std${s}_on107off0 636 &
-            python3 ms_input.py jitter_fem/$((k+1))/zebra_std$((s+25))_on107off0 zebra_$((k+1))_std$((s+25))_on107off0 636 
+            python3 02_filter_stages/ms_input.py jitter_fem/$((k))/zebra_std${s}_on107off0 zebra_$((k))_std${s}_on107off0 636 &
+            python3 02_filter_stages/ms_input.py jitter_fem/$((k))/zebra_std$((s+25))_on107off0 zebra_$((k))_std$((s+25))_on107off0 636 &
+            python3 02_filter_stages/ms_input.py jitter_fem/$((k+1))/zebra_std${s}_on107off0 zebra_$((k+1))_std${s}_on107off0 636 &
+            python3 02_filter_stages/ms_input.py jitter_fem/$((k+1))/zebra_std$((s+25))_on107off0 zebra_$((k+1))_std$((s+25))_on107off0 636 
 
             wait
 
@@ -95,11 +95,11 @@ do
               j=107
               echo simulation $i $j
 
-              python3 ms_network_no_m.py jitter_fem/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
-              python3 ms_network_no_m.py jitter_fem/$((k+1))/zebra_std${s}_on${j}off${i} zebra_$((k+1))_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
+              python3 03_network/ms_network_no_m.py jitter_fem/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
+              python3 03_network/ms_network_no_m.py jitter_fem/$((k+1))/zebra_std${s}_on${j}off${i} zebra_$((k+1))_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
 
-              python3 ms_network_no_m.py jitter_fem/${k}/zebra_std$((s+25))_on${j}off${i} zebra_${k}_std$((s+25))_on${j}off${i} 62. 16. 636 ${j} ${i}
-              python3 ms_network_no_m.py jitter_fem/$((k+1))/zebra_std$((s+25))_on${j}off${i} zebra_$((k+1))_std$((s+25))_on${j}off${i} 62. 16. 636 ${j} ${i}
+              python3 03_network/ms_network_no_m.py jitter_fem/${k}/zebra_std$((s+25))_on${j}off${i} zebra_${k}_std$((s+25))_on${j}off${i} 62. 16. 636 ${j} ${i}
+              python3 03_network/ms_network_no_m.py jitter_fem/$((k+1))/zebra_std$((s+25))_on${j}off${i} zebra_$((k+1))_std$((s+25))_on${j}off${i} 62. 16. 636 ${j} ${i}
 
             done
 

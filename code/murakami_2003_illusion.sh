@@ -5,11 +5,11 @@
 for k in {1..10}
 do 
 
-    if [ ! -d ../video/img_input/jitter_fem/${k} ]; then
-        mkdir -p ../video/img_input/jitter_fem/${k}
+    if [ ! -d ../video/img_input/murakami2003/${k} ]; then
+        mkdir -p ../video/img_input/murakami2003/${k}
     fi
     cd ../video/img_input/poletti2010/blocks/$((k+10))
-        cp displacement.data ../../../jitter_fem/${k}
+        cp displacement.data ../../../murakami2003/${k}
     cd ../../../../../pro
 
     for s in 1 
@@ -19,18 +19,18 @@ do
         do
           j=53
           echo simulation $i $j
-          if [ ! -d ../video/img_input/jitter_fem/${k}/zebra_std${s}_on${j}off${i} ]; then
-              mkdir -p ../video/img_input/jitter_fem/${k}/zebra_std${s}_on${j}off${i}
+          if [ ! -d ../video/img_input/murakami2003/${k}/zebra_std${s}_on${j}off${i} ]; then
+              mkdir -p ../video/img_input/murakami2003/${k}/zebra_std${s}_on${j}off${i}
           fi
           
-          if [ ! -d ../data/jitter_fem/${k}/zebra_std${s}_on${j}off${i}/network ]; then
-              mkdir -p ../data/jitter_fem/${k}/zebra_std${s}_on${j}off${i}/network
+          if [ ! -d ../data/murakami2003/${k}/zebra_std${s}_on${j}off${i}/network ]; then
+              mkdir -p ../data/murakami2003/${k}/zebra_std${s}_on${j}off${i}/network
           fi
           
-          python3 image_creation_jitter_fem.py ${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} ${i} ${j} 100 636
+          python3 01_image_input/image_creation_murakami_2003_1D.py ${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} ${i} ${j} 100 636
 
           #delete unnecessary files
-          cd ../video/img_input/jitter_fem/${k}/zebra_std${s}_on${j}off${i}
+          cd ../video/img_input/murakami2003/${k}/zebra_std${s}_on${j}off${i}
           find -type f -name '*first*' -delete
           cd ../../../../../pro
 
@@ -40,18 +40,18 @@ do
         do
           j=107
           echo simulation $i $j
-          if [ ! -d ../video/img_input/jitter_fem/${k}/zebra_std${s}_on${j}off${i} ]; then
-              mkdir -p ../video/img_input/jitter_fem/${k}/zebra_std${s}_on${j}off${i}
+          if [ ! -d ../video/img_input/murakami2003/${k}/zebra_std${s}_on${j}off${i} ]; then
+              mkdir -p ../video/img_input/murakami2003/${k}/zebra_std${s}_on${j}off${i}
           fi
           
-          if [ ! -d ../data/jitter_fem/${k}/zebra_std${s}_on${j}off${i}/network ]; then
-              mkdir -p ../data/jitter_fem/${k}/zebra_std${s}_on${j}off${i}/network
+          if [ ! -d ../data/murakami2003/${k}/zebra_std${s}_on${j}off${i}/network ]; then
+              mkdir -p ../data/murakami2003/${k}/zebra_std${s}_on${j}off${i}/network
           fi
           
-          python3 image_creation_jitter_fem.py ${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} ${i} ${j} 100 636
+          python3 01_image_input/image_creation_murakami_2003_1D.py ${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} ${i} ${j} 100 636
 
           #delete unnecessary files
-          cd ../video/img_input/jitter_fem/${k}/zebra_std${s}_on${j}off${i}
+          cd ../video/img_input/murakami2003/${k}/zebra_std${s}_on${j}off${i}
           find -type f -name '*first*' -delete
           cd ../../../../../pro
 
@@ -61,53 +61,53 @@ do
         do
           j=213
           echo simulation $i $j
-          if [ ! -d ../video/img_input/jitter_fem/${k}/zebra_std${s}_on${j}off${i} ]; then
-              mkdir -p ../video/img_input/jitter_fem/${k}/zebra_std${s}_on${j}off${i}
+          if [ ! -d ../video/img_input/murakami2003/${k}/zebra_std${s}_on${j}off${i} ]; then
+              mkdir -p ../video/img_input/murakami2003/${k}/zebra_std${s}_on${j}off${i}
           fi
           
-          if [ ! -d ../data/jitter_fem/${k}/zebra_std${s}_on${j}off${i}/network ]; then
-              mkdir -p ../data/jitter_fem/${k}/zebra_std${s}_on${j}off${i}/network
+          if [ ! -d ../data/murakami2003/${k}/zebra_std${s}_on${j}off${i}/network ]; then
+              mkdir -p ../data/murakami2003/${k}/zebra_std${s}_on${j}off${i}/network
           fi
           
-          python3 image_creation_jitter_fem.py ${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} ${i} ${j} 100 636
+          python3 01_image_input/image_creation_murakami_2003_1D.py ${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} ${i} ${j} 100 636
 
           delete unnecessary files
-          cd ../video/img_input/jitter_fem/${k}/zebra_std${s}_on${j}off${i}
+          cd ../video/img_input/murakami2003/${k}/zebra_std${s}_on${j}off${i}
           find -type f -name '*first*' -delete
           cd ../../../../../pro
 
         done
 
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on53off13 zebra_${k}_std${s}_on53off13 636 &
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on53off27 zebra_${k}_std${s}_on53off27 636 &
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on53off40 zebra_${k}_std${s}_on53off40 636 &
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on107off0 zebra_${k}_std${s}_on107off0 636 
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on53off13 zebra_${k}_std${s}_on53off13 636 &
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on53off27 zebra_${k}_std${s}_on53off27 636 &
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on53off40 zebra_${k}_std${s}_on53off40 636 &
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on107off0 zebra_${k}_std${s}_on107off0 636 
 
     wait
 
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on107off13 zebra_${k}_std${s}_on107off13 636 &
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on107off27 zebra_${k}_std${s}_on107off27 636 &
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on107off40 zebra_${k}_std${s}_on107off40 636 &
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on107off53 zebra_${k}_std${s}_on107off53 636 
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on107off13 zebra_${k}_std${s}_on107off13 636 &
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on107off27 zebra_${k}_std${s}_on107off27 636 &
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on107off40 zebra_${k}_std${s}_on107off40 636 &
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on107off53 zebra_${k}_std${s}_on107off53 636 
 
     wait
 
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on107off67 zebra_${k}_std${s}_on107off67 636 &
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on107off80 zebra_${k}_std${s}_on107off80 636 &
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on107off93 zebra_${k}_std${s}_on107off93 636
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on107off67 zebra_${k}_std${s}_on107off67 636 &
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on107off80 zebra_${k}_std${s}_on107off80 636 &
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on107off93 zebra_${k}_std${s}_on107off93 636
 
     wait
 
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on213off27 zebra_${k}_std${s}_on213off27 636 &
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on213off53 zebra_${k}_std${s}_on213off53 636 &
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on213off80 zebra_${k}_std${s}_on213off80 636 &
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on213off107 zebra_${k}_std${s}_on213off107 636
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on213off27 zebra_${k}_std${s}_on213off27 636 &
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on213off53 zebra_${k}_std${s}_on213off53 636 &
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on213off80 zebra_${k}_std${s}_on213off80 636 &
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on213off107 zebra_${k}_std${s}_on213off107 636
 
     wait
 
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on213off133 zebra_${k}_std${s}_on213off133 636 &
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on213off160 zebra_${k}_std${s}_on213off160 636 &
-        python3 ms_input.py jitter_fem/${k}/zebra_std${s}_on213off187 zebra_${k}_std${s}_on213off187 636 
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on213off133 zebra_${k}_std${s}_on213off133 636 &
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on213off160 zebra_${k}_std${s}_on213off160 636 &
+        python3 02_filter_stages/ms_input.py murakami2003/${k}/zebra_std${s}_on213off187 zebra_${k}_std${s}_on213off187 636 
 
     wait
 
@@ -116,7 +116,7 @@ do
           j=53
           echo simulation $i $j
           
-          python3 ms_network_no_m.py jitter_fem/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
+          python3 03_network/ms_network_no_m.py murakami2003/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
           
         done
         
@@ -125,7 +125,7 @@ do
           j=107
           echo simulation $i $j
           
-          python3 ms_network_no_m.py jitter_fem/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
+          python3 03_network/ms_network_no_m.py murakami2003/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
           
         done
         
@@ -134,7 +134,7 @@ do
           j=213
           echo simulation $i $j
           
-          python3 ms_network_no_m.py jitter_fem/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
+          python3 03_network/ms_network_no_m.py murakami2003/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
           
         done
 
