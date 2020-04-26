@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#run simulation for input without FEM once
+#create simulations with FEM -> take simulation number 0
 for j in 0
   do
 
@@ -41,7 +41,7 @@ for j in 0
           mkdir -p ../data/poletti2010/blocks/${i}/border_m/network;
       fi
 
-      #create images, FEM=0
+      #create images, FEM=1
       python3 01_image_input/image_creation_poletti_2010_1D_blocks.py ${i} 0
 
       #delete unnecessary files
@@ -62,33 +62,24 @@ for j in 0
 
     python3 02_filter_stages/ms_input.py poletti2010/blocks/${j}/dot dot_${j} 1000 &
     python3 02_filter_stages/ms_input.py poletti2010/blocks/${j}/border border_${j} 1000 &
-    python3 02_filter_stages/ms_input.py poletti2010/blocks/$((j+1))/dot dot_$((j+1)) 1000 &
-    python3 02_filter_stages/ms_input.py poletti2010/blocks/$((j+1))/border border_$((j+1)) 1000
-
-    wait
-
-    date
-    echo 'STARTING INPUT SIMULATIONS FOR MOVING ' ${j}
-
     python3 02_filter_stages/ms_input.py poletti2010/blocks/${j}/dot_m dot_m_${j} 1000 &
-    python3 02_filter_stages/ms_input.py poletti2010/blocks/${j}/border_m border_m_${j} 1000 &
-    python3 02_filter_stages/ms_input.py poletti2010/blocks/$((j+1))/dot_m dot_m_$((j+1)) 1000 &
-    python3 02_filter_stages/ms_input.py poletti2010/blocks/$((j+1))/border_m border_m_$((j+1)) 1000
+    python3 02_filter_stages/ms_input.py poletti2010/blocks/${j}/border_m border_m_${j} 1000
 
     wait
 
-    for i in $j
+    for i in ${j}
     do
 
       echo "STARTING NETWORK SIMULATIONS FOR " ${i}
 
-      python3 03_network/ms_network_no_m.py poletti2010/blocks/${i}/dot dot_${i} 32. 16. 1000 dot ${i}
-      python3 03_network/ms_network_no_m.py poletti2010/blocks/${i}/dot_m dot_m_${i} 62. 16. 1000 dot_m ${i}
-      python3 03_network/ms_network_no_m.py poletti2010/blocks/${i}/border border_${i} 32. 16. 1000 border ${i}
-      python3 03_network/ms_network_no_m.py poletti2010/blocks/${i}/border_m border_m_${i} 62. 16. 1000 border_m ${i}
+      python3 03_network/ms_network_only_p.py poletti2010/blocks/${i}/dot dot_${i} 32. 16. 1000 dot ${i}
+      python3 03_network/ms_network_only_p.py poletti2010/blocks/${i}/dot_m dot_m_${i} 62. 16. 1000 dot_m ${i}
+      python3 03_network/ms_network_only_p.py poletti2010/blocks/${i}/border border_${i} 32. 16. 1000 border ${i}
+      python3 03_network/ms_network_only_p.py poletti2010/blocks/${i}/border_m border_m_${i} 62. 16. 1000 border_m ${i}
 
     done
 done
+
 
 
 #create simulations with FEM
@@ -145,19 +136,19 @@ for j in {1..10..2}
       cd ../border_m
       find -type f -name '*first*' -delete
       cd ../../../../../../code
-      
+
     done
-    
+
     date
     echo 'STARTING INPUT SIMULATIONS FOR ' ${j}
-    
+
     python3 02_filter_stages/ms_input.py poletti2010/blocks/${j}/dot dot_${j} 1000 &
     python3 02_filter_stages/ms_input.py poletti2010/blocks/${j}/border border_${j} 1000 &
     python3 02_filter_stages/ms_input.py poletti2010/blocks/$((j+1))/dot dot_$((j+1)) 1000 &
     python3 02_filter_stages/ms_input.py poletti2010/blocks/$((j+1))/border border_$((j+1)) 1000
 
     wait
-    
+
     date
     echo 'STARTING INPUT SIMULATIONS FOR MOVING ' ${j}
 
@@ -167,16 +158,16 @@ for j in {1..10..2}
     python3 02_filter_stages/ms_input.py poletti2010/blocks/$((j+1))/border_m border_m_$((j+1)) 1000
 
     wait
-    
-    for i in $j $((j+1))
+
+    for i in ${j} $((j+1))
     do
 
       echo "STARTING NETWORK SIMULATIONS FOR " ${i}
 
-      python3 03_network/ms_network_no_m.py poletti2010/blocks/${i}/dot dot_${i} 32. 16. 1000 dot ${i}
-      python3 03_network/ms_network_no_m.py poletti2010/blocks/${i}/dot_m dot_m_${i} 62. 16. 1000 dot_m ${i}
-      python3 03_network/ms_network_no_m.py poletti2010/blocks/${i}/border border_${i} 32. 16. 1000 border ${i}
-      python3 03_network/ms_network_no_m.py poletti2010/blocks/${i}/border_m border_m_${i} 62. 16. 1000 border_m ${i}
+      python3 03_network/ms_network_only_p.py poletti2010/blocks/${i}/dot dot_${i} 32. 16. 1000 dot ${i}
+      python3 03_network/ms_network_only_p.py poletti2010/blocks/${i}/dot_m dot_m_${i} 62. 16. 1000 dot_m ${i}
+      python3 03_network/ms_network_only_p.py poletti2010/blocks/${i}/border border_${i} 32. 16. 1000 border ${i}
+      python3 03_network/ms_network_only_p.py poletti2010/blocks/${i}/border_m border_m_${i} 62. 16. 1000 border_m ${i}
 
     done
 done
