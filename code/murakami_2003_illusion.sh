@@ -140,5 +140,3 @@ do
 
     done
 done
-
-bash murakami_2003_sigma.sh
