@@ -10,7 +10,7 @@ do
     fi
     cd ../video/img_input/poletti2010/blocks/$((k+10))
         cp displacement.data ../../../murakami2003/${k}
-    cd ../../../../../pro
+    cd ../../../../../code
 
     for s in 1 
     do
@@ -32,7 +32,7 @@ do
           #delete unnecessary files
           cd ../video/img_input/murakami2003/${k}/zebra_std${s}_on${j}off${i}
           find -type f -name '*first*' -delete
-          cd ../../../../../pro
+          cd ../../../../../code
 
         done
 
@@ -53,7 +53,7 @@ do
           #delete unnecessary files
           cd ../video/img_input/murakami2003/${k}/zebra_std${s}_on${j}off${i}
           find -type f -name '*first*' -delete
-          cd ../../../../../pro
+          cd ../../../../../code
 
         done
 
@@ -74,7 +74,7 @@ do
           delete unnecessary files
           cd ../video/img_input/murakami2003/${k}/zebra_std${s}_on${j}off${i}
           find -type f -name '*first*' -delete
-          cd ../../../../../pro
+          cd ../../../../../code
 
         done
 

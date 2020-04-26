@@ -53,7 +53,7 @@ for j in 0
       find -type f -name '*first*' -delete
       cd ../border_m
       find -type f -name '*first*' -delete
-      cd ../../../../../../pro
+      cd ../../../../../../code
 
     done
 
@@ -144,7 +144,7 @@ for j in {1..10..2}
       find -type f -name '*first*' -delete
       cd ../border_m
       find -type f -name '*first*' -delete
-      cd ../../../../../../pro
+      cd ../../../../../../code
       
     done
     

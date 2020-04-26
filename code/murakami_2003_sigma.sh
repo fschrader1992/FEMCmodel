@@ -45,10 +45,10 @@ do
               #delete unnecessary files
               cd ../video/img_input/jitter_fem/${k}/zebra_std${s}_on${j}off${i}
                   find -type f -name '*first*' -delete
-              cd ../../../../../pro
+              cd ../../../../../code
               cd ../video/img_input/jitter_fem/${k}/zebra_std$((s+25))_on${j}off${i}
                   find -type f -name '*first*' -delete
-              cd ../../../../../pro
+              cd ../../../../../code
               
               
               
@@ -76,10 +76,10 @@ do
               #delete unnecessary files
               cd ../video/img_input/jitter_fem/$((k+1))/zebra_std${s}_on${j}off${i}
                   find -type f -name '*first*' -delete
-              cd ../../../../../pro
+              cd ../../../../../code
               cd ../video/img_input/jitter_fem/$((k+1))/zebra_std$((s+25))_on${j}off${i}
                   find -type f -name '*first*' -delete
-              cd ../../../../../pro
+              cd ../../../../../code
 
             done
 
