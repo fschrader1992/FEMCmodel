@@ -1,0 +1,107 @@
+#!/bin/bash
+
+#VARYING SIGMA
+
+for k in {1..6..2}
+do 
+
+    if [ ! -d ../video/img_input/jitter_fem/${k} ]; then
+        mkdir -p ../video/img_input/jitter_fem/${k}
+    fi
+    
+    if [ ! -d ../video/img_input/jitter_fem/$((k+1)) ]; then
+        mkdir -p ../video/img_input/jitter_fem/$((k+1))
+    fi
+
+    #values of sigma (percent of normal value)
+    for s in {0..150..50}
+    do
+
+            for i in 0  
+            do
+              j=107
+              echo simulation $i $s
+              if [ ! -d ../video/img_input/jitter_fem/${k}/zebra_std${s}_on${j}off${i} ]; then
+                  mkdir -p ../video/img_input/jitter_fem/${k}/zebra_std${s}_on${j}off${i}
+              fi
+
+              if [ ! -d ../data/jitter_fem/${k}/zebra_std${s}_on${j}off${i}/network ]; then
+                  mkdir -p ../data/jitter_fem/${k}/zebra_std${s}_on${j}off${i}/network
+              fi
+
+              echo simulation $i $((s+25))
+              if [ ! -d ../video/img_input/jitter_fem/${k}/zebra_std$((s+25))_on${j}off${i} ]; then
+                  mkdir -p ../video/img_input/jitter_fem/${k}/zebra_std$((s+25))_on${j}off${i}
+              fi
+
+              if [ ! -d ../data/jitter_fem/${k}/zebra_std$((s+25))_on${j}off${i}/network ]; then
+                  mkdir -p ../data/jitter_fem/${k}/zebra_std$((s+25))_on${j}off${i}/network
+              fi
+
+
+              python3 image_creation_jitter_fem.py ${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} ${i} ${j} ${s} 636
+              python3 image_creation_jitter_fem.py ${k}/zebra_std$((s+25))_on${j}off${i} zebra_${k}_std$((s+25))_on${j}off${i} ${i} ${j} $((s+25)) 636
+
+              #delete unnecessary files
+              cd ../video/img_input/jitter_fem/${k}/zebra_std${s}_on${j}off${i}
+                  find -type f -name '*first*' -delete
+              cd ../../../../../pro
+              cd ../video/img_input/jitter_fem/${k}/zebra_std$((s+25))_on${j}off${i}
+                  find -type f -name '*first*' -delete
+              cd ../../../../../pro
+              
+              
+              
+              if [ ! -d ../video/img_input/jitter_fem/$((k+1))/zebra_std${s}_on${j}off${i} ]; then
+                  mkdir -p ../video/img_input/jitter_fem/$((k+1))/zebra_std${s}_on${j}off${i}
+              fi
+
+              if [ ! -d ../data/jitter_fem/$((k+1))/zebra_std${s}_on${j}off${i}/network ]; then
+                  mkdir -p ../data/jitter_fem/$((k+1))/zebra_std${s}_on${j}off${i}/network
+              fi
+
+              echo simulation $i $((s+25))
+              if [ ! -d ../video/img_input/jitter_fem/$((k+1))/zebra_std$((s+25))_on${j}off${i} ]; then
+                  mkdir -p ../video/img_input/jitter_fem/$((k+1))/zebra_std$((s+25))_on${j}off${i}
+              fi
+
+              if [ ! -d ../data/jitter_fem/$((k+1))/zebra_std$((s+25))_on${j}off${i}/network ]; then
+                  mkdir -p ../data/jitter_fem/$((k+1))/zebra_std$((s+25))_on${j}off${i}/network
+              fi
+
+
+              python3 image_creation_jitter_fem.py $((k+1))/zebra_std${s}_on${j}off${i} zebra_$((k+1))_std${s}_on${j}off${i} ${i} ${j} ${s} 636
+              python3 image_creation_jitter_fem.py $((k+1))/zebra_std$((s+25))_on${j}off${i} zebra_$((k+1))_std$((s+25))_on${j}off${i} ${i} ${j} $((s+25)) 636
+
+              #delete unnecessary files
+              cd ../video/img_input/jitter_fem/$((k+1))/zebra_std${s}_on${j}off${i}
+                  find -type f -name '*first*' -delete
+              cd ../../../../../pro
+              cd ../video/img_input/jitter_fem/$((k+1))/zebra_std$((s+25))_on${j}off${i}
+                  find -type f -name '*first*' -delete
+              cd ../../../../../pro
+
+            done
+
+            python3 ms_input.py jitter_fem/$((k))/zebra_std${s}_on107off0 zebra_$((k))_std${s}_on107off0 636 &
+            python3 ms_input.py jitter_fem/$((k))/zebra_std$((s+25))_on107off0 zebra_$((k))_std$((s+25))_on107off0 636 &
+            python3 ms_input.py jitter_fem/$((k+1))/zebra_std${s}_on107off0 zebra_$((k+1))_std${s}_on107off0 636 &
+            python3 ms_input.py jitter_fem/$((k+1))/zebra_std$((s+25))_on107off0 zebra_$((k+1))_std$((s+25))_on107off0 636 
+
+            wait
+
+            for i in 0 #80
+            do
+              j=107
+              echo simulation $i $j
+
+              python3 ms_network_no_m.py jitter_fem/${k}/zebra_std${s}_on${j}off${i} zebra_${k}_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
+              python3 ms_network_no_m.py jitter_fem/$((k+1))/zebra_std${s}_on${j}off${i} zebra_$((k+1))_std${s}_on${j}off${i} 62. 16. 636 ${j} ${i}
+
+              python3 ms_network_no_m.py jitter_fem/${k}/zebra_std$((s+25))_on${j}off${i} zebra_${k}_std$((s+25))_on${j}off${i} 62. 16. 636 ${j} ${i}
+              python3 ms_network_no_m.py jitter_fem/$((k+1))/zebra_std$((s+25))_on${j}off${i} zebra_$((k+1))_std$((s+25))_on${j}off${i} 62. 16. 636 ${j} ${i}
+
+            done
+
+    done
+done
