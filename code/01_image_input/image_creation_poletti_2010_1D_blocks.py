@@ -14,7 +14,7 @@ fem = sys.argv[2]
 
 print("IMAGE CREATION BLOCKS " + suff)
 
-file_dir = "../../video/img_input/poletti2010/blocks/" + str(suff) + "/"
+file_dir = "../video/img_input/poletti2010/blocks/" + str(suff) + "/"
 
 image_height = 30
 # dot size of 4 arcmin -> 8px
@@ -37,9 +37,10 @@ cov = [[1, 0], [0, 1]]
 tl_x, tl_y = sigma*np.random.multivariate_normal(mean, cov, film_length).T
 rm = tl_x
 
-d_data = open(file_dir + 'displacement.data', 'wb')
-np.save(d_data, (tl_x, tl_y))
-d_data.close()
+if fem == "1":
+    d_data = open(file_dir + 'displacement.data', 'wb')
+    np.save(d_data, (tl_x, tl_y))
+    d_data.close()
 
 f_names = ["dot", "dot_m", "border", "border_m"]
 
@@ -112,12 +113,10 @@ for f_name in f_names:
         # final image
         fig = plt.figure()
         fig.set_size_inches(2, 2.*image_height/image_width)
-        # fig.set_size_inches(0.25,1)
         ax = plt.Axes(fig, [0., 0., 1., 1.])
         ax.set_axis_off()
         fig.add_axes(ax)
         ax.imshow(blur, cmap='gray')
 
-        # plt.savefig(file_location + "/second"+str(f+1).zfill(3)+".png",  dpi = 120)
         plt.savefig(file_location + "/second"+str(f+1).zfill(3)+".png",  dpi=dpi)
         plt.close()
