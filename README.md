@@ -17,8 +17,8 @@ The files are located in the code directory. For each simulation there are four 
 
 For the experiments by Poletti et al. (2010), steps 1-3 are handled by the script
 [poletti_2010_blocks_1D.sh](code/poletti_2010_blocks_1D.sh). For Murakami's On-Line illusion (2003), be sure to run both
-scripts, the one for varying the standard deviation $\sigma$ [murakami_2003_sigma.sh](code/murakami_2003_sigma.sh) and 
-the one with varying ($t_p$, $t_off$) for the illusion [murakami_2003_illusion.sh](code/murakami_2003_illusion.sh)
+scripts, the one for varying the standard deviation sigma [murakami_2003_sigma.sh](code/murakami_2003_sigma.sh) and 
+the one with varying (t_p, t_off) for the illusion [murakami_2003_illusion.sh](code/murakami_2003_illusion.sh)
 itself. The fourth step is handled by two jupyter notebooks. Here you can adapt the parameters for the motion detection
 stage and plots.
 All files are commented for clarity.
