@@ -42,7 +42,8 @@ fn = sys.argv[3]
 #read image files from dir (processed image labelled as second001 etc.)
 frames = []
 frame_number = int(fn)
-os.chdir("../../video/img_input/" + sim_title)
+
+os.chdir("../video/img_input/" + sim_title)
 for file in glob.glob("second*.png"):
     frames += [file]
 frames.sort()
@@ -62,7 +63,6 @@ for f, file in enumerate(frames):
     pixel4d[f] = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY).astype(float)
 
 cv2.destroyAllWindows()
-
 #change directory
 curr_dir = sim_title.count("/")
 up_dirs_str = ""
@@ -228,8 +228,8 @@ midgets4d_temp = np.zeros(shape=(frame_number, midget_height, midget_width))
 for f in range(frame_number):
     if f % 100 == 0:
         print(handle_name + ' time step ' + str(f))
-    midgets4d_temp[f] = np.sum(z[temp_filter_cut_off:]*midgets4d, axis=0)
-    z = np.roll(z, 1, axis=0)
+    midgets4d_temp[f] = np.sum(temp_filter[temp_filter_cut_off:]*midgets4d, axis=0)
+    temp_filter = np.roll(temp_filter, 1, axis=0)
 
 #rectification
 midgets4d_temp_on = np.where(midgets4d_temp < 0, 0, midgets4d_temp)
@@ -249,7 +249,7 @@ par_sf_br_v = int(1./0.866*par_sf_br)
 i_low = -par_sf_br_v
 i_ceil = par_sf_br_v + 1
 j_low = -par_sf_br
-j_ceil = par_sf_br_v + 1
+j_ceil = par_sf_br + 1
 
 #calculate filter
 (tt, yy, xx) = np.mgrid[0:frame_number, i_low:i_ceil, j_low:j_ceil]
@@ -294,7 +294,7 @@ def get_spat_filter_parasol(ij):
     j_low = int(mid_par_ratio)*ij[1]
     j_ceil = int(mid_par_ratio)*ij[1] + 2*par_sf_br + 1
 
-    #get fitlered values
+    #get filtered values
     qrt = np.sum(par_sf * m4d[:, i_low:i_ceil, j_low:j_ceil], axis=1)
     parasols4d[:, ij[0], ij[1]] = np.sum(qrt, axis=1)
 
@@ -310,29 +310,29 @@ parasols4d_on = np.where(parasols4d < 0, 0, parasols4d)
 print('save ' + handle_name)
 
 #save cell positions
-m_pos_data = open('../data/'+sim_title+'/m_pos_'+str(handle_name)+'.data', 'wb')
+m_pos_data = open('../../data/'+sim_title+'/m_pos_'+str(handle_name)+'.data', 'wb')
 np.save(m_pos_data, midget_grid)
 m_pos_data.close()
 
-p_pos_data = open('../data/'+sim_title+'/p_pos_'+str(handle_name)+'.data', 'wb')
+p_pos_data = open('../../data/'+sim_title+'/p_pos_'+str(handle_name)+'.data', 'wb')
 np.save(p_pos_data, parasol_grid)
 p_pos_data.close()
 
 #save cell membrane potential
-m_data = open('../data/'+sim_title+'/midget_rates_'+str(handle_name)+'.data', 'wb')
+m_data = open('../../data/'+sim_title+'/midget_rates_'+str(handle_name)+'.data', 'wb')
 np.save(m_data, midgets4d_temp)
 m_data.close()
 
-p_data = open('../data/'+sim_title+'/parasol_rates_'+str(handle_name)+'.data', 'wb')
-np.save(m_data, parasols4d)
+p_data = open('../../data/'+sim_title+'/parasol_rates_'+str(handle_name)+'.data', 'wb')
+np.save(p_data, parasols4d)
 p_data.close()
 
-m_data = open('../data/'+sim_title+'/midget_rates_'+str(handle_name)+'_on.data', 'wb')
+m_data = open('../../data/'+sim_title+'/midget_rates_'+str(handle_name)+'_on.data', 'wb')
 np.save(m_data, midgets4d_temp_on)
 m_data.close()
 
-p_data = open('../data/'+sim_title+'/parasol_rates_'+str(handle_name)+'_on.data', 'wb')
-np.save(m_data, parasols4d_on)
+p_data = open('../../data/'+sim_title+'/parasol_rates_'+str(handle_name)+'_on.data', 'wb')
+np.save(p_data, parasols4d_on)
 p_data.close()
 
 print('--- PROGRAM FINISHED ---')
