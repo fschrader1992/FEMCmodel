@@ -70,7 +70,7 @@ p_file.close()
 parasol_rates = p_data
 
 #amplification of membrane potential, calibrated to moving bar stimulus
-pmr = 0.03
+pmr = 0.2
 
 parasol_rates = pmr*parasol_rates #+p_noise
 
