@@ -161,7 +161,7 @@ def get_spat_filter_midget(ij):
     #print info
     if ij[0] % 5 == 0:
         if ij[1] == 0:
-            print(handle_name + ' ' + str(ij[0]))
+            print(handle_name + ' ms ' + str(ij[0]))
 
     #get position
     #cos(30deg)
@@ -227,7 +227,7 @@ midgets4d_temp = np.zeros(shape=(frame_number, midget_height, midget_width))
 #apply temporal filter
 for f in range(frame_number):
     if f % 100 == 0:
-        print(handle_name + ' time step ' + str(f))
+        print(handle_name + ' mt ' + str(f))
     midgets4d_temp[f] = np.sum(temp_filter[temp_filter_cut_off:]*midgets4d, axis=0)
     temp_filter = np.roll(temp_filter, 1, axis=0)
 
@@ -275,7 +275,7 @@ def get_spat_filter_parasol(ij):
     #print info
     if ij[0]%5 == 0:
         if ij[1] == 0:
-            print(handle_name + ' ' + str(ij[0]))
+            print(handle_name + ' ps ' + str(ij[0]))
 
     #get position
     pos_i = 0.866*mid_par_ratio*ij[0]
