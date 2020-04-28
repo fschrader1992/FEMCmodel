@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.colors as colors
 import cv2
 import sys
 
@@ -15,16 +16,21 @@ file_loc = sys.argv[1]
 suff = sys.argv[2]
 #t_p
 cyc1 = float(sys.argv[3])
-t_on
+#t_on
 cyc2 = float(sys.argv[4])
 #ampiltude of sigma as percentage of normal value
 ampl = float(sys.argv[5])
 #simulation length
 film_length = int(sys.argv[6])
 
+set_fem_path = 0
+if len(sys.argv) == 8:
+    print("CREATED")
+    set_fem_path = int(sys.argv[7])
+
 print("IMAGE CREATION BLOCKS " + suff)
 
-file_location = "../../video/img_input/murakami2003/" + str(file_loc) + "/"
+file_location = "../video/img_input/murakami2003/" + str(file_loc) + "/"
 
 image_height = 30
 image_width = 120
@@ -46,14 +52,19 @@ sigma = 0.632
 
 # get normal 2d distribution
 # use this to get same statistics as for actual 2D random walk -> use only x-component
-mean = [0, 0]
-cov = [[1, 0], [0, 1]]
-tl_x, tl_y = sigma*np.random.multivariate_normal(mean, cov, film_length).T
-rm = tl_x
 
-d_data = open(file_dir + 'displacement.data', 'wb')
-np.save(d_data, (tl_x, tl_y))
-d_data.close()
+#create data once
+if set_fem_path == 1:
+    mean = [0, 0]
+    cov = [[1, 0], [0, 1]]
+    tl_x, tl_y = sigma*np.random.multivariate_normal(mean, cov, film_length).T
+
+    d_data = open(file_location + '../displacement.data', 'wb')
+    np.save(d_data, (tl_x, tl_y))
+    d_data.close()
+
+d_data = open(file_location + '../displacement.data', 'rb')
+(rm, t_y) = np.load(d_data)
 
 #for varying sigma
 rm = 0.01 * ampl * rm
@@ -83,12 +94,8 @@ pos = (image_height/2. - 0.5, image_width/2)
 for f in range(film_length):
     canvas = np.zeros((image_height, image_width))
 
-    #move according to linear velocity
-    pos = (pos[0], pos[1] + vel)
-
-    #if FEM are included
-    if fem == "1":
-        pos = (pos[0], pos[1] + rm[f])
+    #move according to FEM
+    pos = (pos[0], pos[1] + rm[f])
 
     for i in range(image_height):
         for j in range(image_width):
